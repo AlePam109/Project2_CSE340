@@ -1,16 +1,18 @@
 #!/bin/bash
 
-if [ ! -d "./tests" ]; then
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+if [ ! -d "${SCRIPT_DIR}/tests" ]; then
     echo "Error: tests directory not found!"
     exit 1
 fi
 
-if [ ! -e "./a.out" ]; then
+if [ ! -e "${SCRIPT_DIR}/a.out" ]; then
     echo "Error: a.out not found!"
     exit 1
 fi
 
-if [ ! -x "./a.out" ]; then
+if [ ! -x "${SCRIPT_DIR}/a.out" ]; then
     echo "Error: a.out not executable!"
     exit 1
 fi
@@ -48,7 +50,7 @@ let all=0
 
 mkdir -p ./output
 
-for test_file in $(find ./tests -type f -name "*.txt" | sort); do
+for test_file in $(find "${SCRIPT_DIR}/tests" -type f -name "*.txt" | sort); do
     all=$((all+1))
     name=`basename ${test_file} .txt`
     expected_file=${test_file}.expected${taskNumber}
